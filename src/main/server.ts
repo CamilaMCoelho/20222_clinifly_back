@@ -1,8 +1,11 @@
+import { adaptRoute } from './adapters/expressRouteAdapter';
 import app from './config/app';
 import env from './config/env';
-import patientRoutes from './routes/patientRoutes'
+import { makeAuthPatientController } from './factories/controllers/authPatientController/authPatientControllerFactory';
+import { makeCreatePatientController } from './factories/controllers/createPatientController/createPatientControllerFactory';
 
-app.use(patientRoutes)
+app.post('/patients', adaptRoute(makeCreatePatientController()))
+app.post('/auth', adaptRoute(makeAuthPatientController()))
 
 app.listen(env.port || 3333, () => {
   console.log('🔥 Server started')
