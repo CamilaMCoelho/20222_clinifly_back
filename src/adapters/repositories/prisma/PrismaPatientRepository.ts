@@ -3,7 +3,8 @@ import { prisma } from "./helpers/prisma";
 import {
   CreatePatientRepository,
   CheckPatientByCpfRepository,
-  GetPatientByIdRepository,
+  CheckPatientByEmailRepository,
+  GetPatientByIdRepository
 } from "../../../useCases/protocols/repositories/patientRepository";
 
 import { CreatePatientData } from "../../../domain/useCases/patients/createPatient";
@@ -13,8 +14,10 @@ export class PrismaPatientsRepository
   implements
     CreatePatientRepository,
     CheckPatientByCpfRepository,
+    CheckPatientByEmailRepository,
     GetPatientByIdRepository
 {
+  
   async create(data: CreatePatientData): Promise<void> {
     await prisma.patient.create({
       data,
@@ -23,6 +26,14 @@ export class PrismaPatientsRepository
   async checkByCpf(cpf: string): Promise<PatientModel | null> {
     const patient = await prisma.patient.findUnique({
       where: { cpf },
+    });
+
+    return patient;
+  }
+
+  async checkByEmail(email: string): Promise<PatientModel | null> {
+    const patient = await prisma.patient.findUnique({
+      where: { email },
     });
 
     return patient;

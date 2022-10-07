@@ -10,6 +10,7 @@ export const makeCreatePatientFactory = (): CreatePatient => {
   return new CreatePatientUseCase(
     prismaPatientsRepository, 
     prismaPatientsRepository,
+    prismaPatientsRepository,
     bcryptAdapter, 
   );
 }

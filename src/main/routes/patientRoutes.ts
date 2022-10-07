@@ -1,7 +1,9 @@
-// import type { Router } from 'express';
-// import { adaptRoute } from '../adapters/expressRouteAdapter';
-// import { makeCreatePatientController } from '../factories/controllers/createPatientController/createPatientControllerFactory';
+import { Router } from 'express'
+import { adaptRoute } from '../adapters/expressRouteAdapter'
+import { makeCreatePatientController } from '../factories/controllers/createPatientController/createPatientControllerFactory'
+import { makeAuthPatientController } from '../factories/controllers/authPatientController/authPatientControllerFactory'
 
-// export default (router: Router): void => {
-//   router.post('/patient', adaptRoute(makeCreatePatientController()))
-// } 
+export default (router: Router): void => {
+  router.post('/patients', adaptRoute(makeCreatePatientController()))
+  router.post('/auth', adaptRoute(makeAuthPatientController()))
+}

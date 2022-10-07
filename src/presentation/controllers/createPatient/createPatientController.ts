@@ -25,7 +25,10 @@ export class CreatePatientController implements Controller {
       switch (error.message) {
         case "STUDENT_CPF_EXISTING":
           return conflict(error);
+        case "STUDENT_EMAIL_EXISTING":
+          return conflict(error)
         default:
+          console.log(error)
           return serverError();
       }
     }
