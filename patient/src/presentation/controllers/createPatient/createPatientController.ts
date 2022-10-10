@@ -23,12 +23,11 @@ export class CreatePatientController implements Controller {
       return ok();
     } catch (error: any) {
       switch (error.message) {
-        case "STUDENT_CPF_EXISTING":
+        case "PATIENT_CPF_EXISTING":
           return conflict(error);
-        case "STUDENT_EMAIL_EXISTING":
+        case "PATIENT_EMAIL_EXISTING":
           return conflict(error)
         default:
-          console.log(error)
           return serverError();
       }
     }

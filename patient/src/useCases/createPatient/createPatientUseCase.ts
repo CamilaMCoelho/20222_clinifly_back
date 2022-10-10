@@ -15,11 +15,11 @@ export class CreatePatientUseCase implements CreatePatient {
     const patientEmail = await this.checkPatientByEmailRepository.checkByEmail(patientData.email)
 
     if(patientCpf) {
-      throw new Error('STUDENT_CPF_EXISTING');
+      throw new Error('PATIENT_CPF_EXISTING');
     }
 
     if(patientEmail) {
-      throw new Error('STUDENT_EMAIL_EXISTING');
+      throw new Error('PATIENT_EMAIL_EXISTING');
     }
 
 
