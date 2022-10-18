@@ -7,6 +7,6 @@ import { makeCreatePatientController } from './factories/controllers/createPatie
 app.post('/patients', adaptRoute(makeCreatePatientController()))
 app.post('/auth', adaptRoute(makeAuthPatientController()))
 
-app.listen(env.port || 3333, () => {
-  console.log('🔥 Server started')
+app.listen(env.port, () => {
+  console.log(`🔥 Server started ${env.port}`)
 })
