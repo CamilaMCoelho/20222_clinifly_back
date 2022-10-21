@@ -10,12 +10,8 @@ export class CreateAppointmentUseCase implements CreateAppointment {
     async create(appointment: CreateAppointmentData, token: string): Promise<AppointmentModel> {
       const { sub: studentId } = this.decrypter
       .decrypt(token) as PayloadData
-
-      console.log(token)
-      console.log(studentId)
       
       const isPatientExists = await this.checkPatientByIdRepository.checkById(studentId as string)
-      console.log(isPatientExists)
 
       if (!isPatientExists) {
         throw new Error('PATIENT_ID_NOT_EXISTING')

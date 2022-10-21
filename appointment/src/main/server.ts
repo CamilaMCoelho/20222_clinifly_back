@@ -3,9 +3,10 @@ import env from './config/env';
 
 import { adaptRoute } from '../../../patient/src/main/adapters/expressRouteAdapter';
 import { makeCreateAppointmentController } from './factories/controllers/createAppointment/createAppointmentControllerFactory';
+import { makeGetAppointmentByCpfController } from './factories/controllers/getAppointmentByCpf/getAppointmentByCpfControllerFactory';
 
 app.post('/appointment', adaptRoute(makeCreateAppointmentController()))
-app.get('/appointment', () => {})
+app.get('/appointment', adaptRoute(makeGetAppointmentByCpfController()))
 
 app.listen(env.port, () => {
   console.log(`🔥 Server started ${env.port}`)

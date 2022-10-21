@@ -1,6 +1,5 @@
 import { Controller, CreateAppointment, HttpRequest, HttpResponse, ok, serverError, } from "./createAppointmentProtocols";
 import { forbidden } from '../../helpers/http/httpHelper';
-
 export class CreateAppointmentController implements Controller {
   constructor(
     private readonly createAppointment: CreateAppointment
@@ -9,9 +8,7 @@ export class CreateAppointmentController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { patientId, doctorId, address, appointment_price } = httpRequest.body
-      const token =
-        httpRequest.body.token
-
+      const { token } = httpRequest.headers
 
       const appointment = await this.createAppointment.create({ patientId, doctorId, address, appointment_price }, token)
 

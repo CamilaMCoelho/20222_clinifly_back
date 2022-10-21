@@ -7,11 +7,13 @@ import {
   CreateAppointmentRepository,
   CheckPatientByIdRepository,
   CheckPatientByIdResponse,
-  GetAppointmentByCpf,
+  GetAppointmentByCpfRepository,
+  CheckPatientByCpfRepository,
+  CheckPatientByCpfResponse
 } from "../../../useCases/protocols/repositories/appointmentRepository";
 
 export class PrismaAppointmentsRepository
-  implements CreateAppointmentRepository, GetAppointmentByCpf, CheckPatientByIdRepository
+  implements CreateAppointmentRepository, GetAppointmentByCpfRepository, CheckPatientByIdRepository, CheckPatientByCpfRepository
 {
   async create(appointment: CreateAppointmentData): Promise<AppointmentModel> {
     const appointmentData = await prisma.appointment.create({
@@ -29,9 +31,16 @@ export class PrismaAppointmentsRepository
     return appointments
   }
 
+  async checkByCpf(cpf: string): Promise<CheckPatientByCpfResponse | null> {
+    const patient = await prisma.patient.findFirst({
+      where: { cpf }
+    })
 
-  async getByCpf(cpf: string): Promise<AppointmentModel | null> {
-    const appointment = await prisma.appointment.findFirst({
+    return patient
+  }
+
+  async getByCpf(cpf: string): Promise<AppointmentModel[]> {
+    const appointment = await prisma.appointment.findMany({
       where: { patient: { cpf } }
     })
 

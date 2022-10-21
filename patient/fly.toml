@@ -1,11 +1,19 @@
-# fly.toml file generated for autumn-flower-819 on 2022-10-18T20:02:09-03:00
+# fly.toml file generated for clinifly-back on 2022-10-20T20:02:33-03:00
 
-app = "autumn-flower-819"
+app = "clinifly-back"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
+[build]
+  builder = "heroku/buildpacks:20"
+
+[deploy]
+  release_command = "npx prisma migrate deploy"
+
 [env]
+  ACCESS_TOKEN_SECRET = "2d1ead6f-be23-4a17-9997-928ad3c44b79"
+  PORT = "8080"
 
 [experimental]
   allowed_public_ports = []

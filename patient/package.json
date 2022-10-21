@@ -15,6 +15,11 @@
     "type": "git",
     "url": "git+https://github.com/CamilaMCoelho/20222_clinifly_back.git"
   },
+
+  "engines": {
+    "node": "16.17.0"
+  },
+  
   "keywords": [],
   "author": "",
   "license": "ISC",
