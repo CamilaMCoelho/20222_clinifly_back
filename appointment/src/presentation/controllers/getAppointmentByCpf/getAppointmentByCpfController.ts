@@ -13,9 +13,11 @@ export class GetAppointmentController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { cpf } = httpRequest.body;
+      const { cpf } = httpRequest.query;
 
+      console.log(cpf)
       const appointment = await this.getAppointmentByCpf.getByCpf(cpf);
+
 
       if (appointment.length === 0) {
         return ok({ message: 'Nenhuma consulta agendada no nome desse paciente' })

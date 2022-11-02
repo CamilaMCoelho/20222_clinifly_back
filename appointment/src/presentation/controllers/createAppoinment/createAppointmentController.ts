@@ -8,7 +8,8 @@ export class CreateAppointmentController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { patientId, doctorId, address, appointment_price } = httpRequest.body
-      const { token } = httpRequest.headers
+      
+      const { token } = httpRequest.body || httpRequest.headers
 
       const appointment = await this.createAppointment.create({ patientId, doctorId, address, appointment_price }, token)
 

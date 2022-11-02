@@ -8,7 +8,7 @@ export class GetAppointmentByCpfUseCase implements GetAppointmentByCpf {
     private readonly checkPatientByCpfRepository: CheckPatientByCpfRepository
   ) {}
 
-  async getByCpf(cpf: string): Promise<AppointmentModel> {
+  async getByCpf(cpf: string): Promise<AppointmentModel[]> {
     const isPatientCpf = await this.checkPatientByCpfRepository.checkByCpf(cpf)
 
     if (!isPatientCpf) {
