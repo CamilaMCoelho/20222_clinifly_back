@@ -4,7 +4,7 @@ export interface CreateAppointmentData {
   patientId: string
   doctorId: string
   address: string
-  appointment_price: string
+  appointmentPrice: string
 }
 
 export interface CreateAppointment {

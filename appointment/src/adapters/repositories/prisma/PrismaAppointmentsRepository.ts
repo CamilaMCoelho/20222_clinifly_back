@@ -24,7 +24,7 @@ export class PrismaAppointmentsRepository
   }
 
   async checkById(patientId: string): Promise<CheckPatientByIdResponse | null> {
-    const appointments = await prisma.patient.findFirst({
+    const appointments = await prisma.patient.findUnique({
       where: { id: patientId }
     })
 
@@ -32,7 +32,7 @@ export class PrismaAppointmentsRepository
   }
 
   async checkByCpf(cpf: string): Promise<CheckPatientByCpfResponse | null> {
-    const patient = await prisma.patient.findFirst({
+    const patient = await prisma.patient.findUnique({
       where: { cpf }
     })
 

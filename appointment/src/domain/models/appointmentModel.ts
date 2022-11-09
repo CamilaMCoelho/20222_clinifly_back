@@ -3,6 +3,6 @@ export interface AppointmentModel {
   patientId: string;
   doctorId: string;
   address: string;
-  appointment_price: string;
+  appointmentPrice: string;
   createdAt: Date;
 }

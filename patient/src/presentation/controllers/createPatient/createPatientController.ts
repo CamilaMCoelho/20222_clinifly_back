@@ -16,9 +16,9 @@ export class CreatePatientController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { name, cpf, age, email, password } = httpRequest.body;
+      const { name, cpf, age, phone, email, password } = httpRequest.body;
 
-      await this.createPatient.create({ name, cpf, age, email, password });
+      await this.createPatient.create({ name, cpf, age, phone, email, password });
 
       return ok();
     } catch (error: any) {

@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-1.1.x"]
@@ -15,6 +12,7 @@ model Patient {
   id          String        @id @default(uuid())
   name        String
   cpf         String        @unique
+  phone       String
   age         Int
   email       String        @unique
   password    String
@@ -35,12 +33,14 @@ model Doctor {
 }
 
 model Appointment {
-  id                String   @id @default(uuid())
-  patient           Patient  @relation(fields: [patientId], references: [id])
-  doctor            Doctor   @relation(fields: [doctorId], references: [id])
-  patientId         String
-  doctorId          String
-  address           String
-  appointment_price String
-  createdAt         DateTime @default(now())
+  id               String   @id @default(uuid())
+  patientId        String
+  doctorId         String
+  address          String
+  appointmentPrice String
+  createdAt        DateTime @default(now())
+  doctor           Doctor   @relation(fields: [doctorId], references: [id])
+  patient          Patient  @relation(fields: [patientId], references: [id])
+
+  @@map("appointments")
 }

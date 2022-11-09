@@ -23,6 +23,7 @@ export class PrismaPatientsRepository
       data,
     });
   }
+
   async checkByCpf(cpf: string): Promise<PatientModel | null> {
     const patient = await prisma.patient.findUnique({
       where: { cpf },
@@ -38,6 +39,7 @@ export class PrismaPatientsRepository
 
     return patient;
   }
+  
   async getById(id: string): Promise<PatientModel | null> {
     const patient = await prisma.patient.findUnique({
       where: { id },
