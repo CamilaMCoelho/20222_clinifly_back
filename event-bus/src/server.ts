@@ -1,6 +1,7 @@
-import express from "express";
 import type { Request, Response } from "express";
+import express from "express";
 import axios from "axios";
+import cors from "cors";
 
 type EventType =
   | "appointmentCreated"
@@ -22,6 +23,7 @@ type ErrorType =
 
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 const eventQueue: EventQueue[] = [];
 
