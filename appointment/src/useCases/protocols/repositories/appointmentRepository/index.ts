@@ -1,4 +1,6 @@
 export * from './createAppointmentRepository'
-export * from './getAppointmentByCpfRepository'
+export * from './getAppointmentByPatientIdRepository'
 export * from './checkPatientByIdRepository'
 export * from './checkPatientByCpfRepository'
+export * from './checkAppointmentByPatientIdRepository'
+export * from './getDoctorsRepository'

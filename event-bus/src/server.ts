@@ -1,4 +1,4 @@
-import type { Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import express from "express";
 import axios from "axios";
 import cors from "cors";
@@ -7,7 +7,8 @@ type EventType =
   | "appointmentCreated"
   | "appointmentGet"
   | "patientCreated"
-  | "patientAuth";
+  | "patientAuth"
+  | "doctorList";
 
 interface EventQueue {
   type: EventType;
@@ -33,6 +34,7 @@ app.get("/eventos", (req: Request, res: Response) => {
 
 app.post("/eventos", async (req: Request, res: Response) => {
   const event: EventQueue = req.body;
+  const queries = req.query
 
   switch (event.type) {
     case "patientCreated":
@@ -85,7 +87,6 @@ app.post("/eventos", async (req: Request, res: Response) => {
           res.status(error.response?.status as number).json({
             error: (error.response?.data as { error: ErrorType }).error,
           });
-          console.log(error.response);
         } else {
           res
             .status(404)
@@ -95,14 +96,28 @@ app.post("/eventos", async (req: Request, res: Response) => {
       break;
     case "appointmentGet":
       try {
-        const { cpf } = req.query;
-        const response = await axios.get(`http://localhost:4000/appointment?cpf=${cpf}`);
-        console.log(response)
+        const response = await axios.get(`http://localhost:4000/appointment?id=${queries.id}`);
         res.status(response.status).json(response.data);
       } catch (error) {
         if (axios.isAxiosError(error)) {
           res.status(error.response?.status as number).json({
             error: (error.response?.data as { error: ErrorType }).error,
+          });
+        } else {
+          res
+            .status(404)
+            .json({ error: "Microsserviço de consulta fora do ar" });
+        }
+      }
+      break;
+    case 'doctorList':
+      try {
+        const response = await axios.get('http://localhost:4000/doctors')
+        res.status(response.status).json(response.data)
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          res.status(error.response?.status as number).json({
+            error: (error.response?.data as { error: any }).error,
           });
         } else {
           res

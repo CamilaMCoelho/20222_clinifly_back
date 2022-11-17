@@ -1,23 +1,22 @@
 import {
   Controller,
-  GetAppointmentByCpf,
+  GetAppointmentByPatientId,
   HttpRequest,
   HttpResponse,
   serverError,
   ok,
   forbidden,
-} from "./getAppointmentByCpfProtocols";
+} from "./getAppointmentByPatientIdProtocols";
 
 export class GetAppointmentController implements Controller {
-  constructor(private readonly getAppointmentByCpf: GetAppointmentByCpf) {}
+  constructor(private readonly getAppointmentByPatientId: GetAppointmentByPatientId) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { cpf } = httpRequest.query;
+      const { id } = httpRequest.query;
 
-      console.log(cpf)
-      const appointment = await this.getAppointmentByCpf.getByCpf(cpf);
 
+      const appointment = await this.getAppointmentByPatientId.getAppointmentByPatientId(id);
 
       if (appointment.length === 0) {
         return ok({ message: 'Nenhuma consulta agendada no nome desse paciente' })
@@ -26,7 +25,7 @@ export class GetAppointmentController implements Controller {
       return ok(appointment);
     } catch (error: any) {
       switch (error.message) {
-        case 'PATIENT_CPF_NOT_EXISTING':
+        case 'PATIENT_ID_NOT_EXISTING':
           return forbidden(error)
         default:
           return serverError()
