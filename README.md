@@ -37,6 +37,9 @@ As seguintes rotas estão configuradas:
 >> - `/appointment` - POST - Cadastrar uma consulta no nome do paciente
 >> - `/appointment` - GET - Retorna os dados da(s) consulta(s) do paciente pelo CPF
 
+> Barramento de Eventos
+>> - `/eventos` - POST - No corpo da requisição enviar type com a opção desejada [**appointmentCreated**, **appointmentGet**, **patientCreated**, **patientAuth**, **doctorList**]
+
 ## :octocat: Instalação
 
 Para clonar o repositório:
